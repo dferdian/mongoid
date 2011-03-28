@@ -77,9 +77,12 @@ module Mongoid #:nodoc:
 
     # Check if the name is valid.
     def check_name!(name)
-      if Mongoid.destructive_fields.include?(name.to_s)
-        raise Mongoid::Errors::InvalidField.new(name)
-      end
+      begin
+        if Mongoid.destructive_fields.include?(name.to_s)
+          raise Mongoid::Errors::InvalidField.new(name)
+        end
+      rescue
+      end  
     end
 
     def check_default!
